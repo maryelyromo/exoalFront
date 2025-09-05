@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 
 
@@ -19,7 +20,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
     AppComponent,
     LoginComponent,
     MenuComponent,
-    InicioComponent
+    InicioComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,

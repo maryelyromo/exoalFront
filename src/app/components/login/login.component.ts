@@ -17,7 +17,7 @@ export class LoginComponent {
 login() {
   this.errorMessage = '';
 
-  this.authService.login({ numemp: this.username, contrasena: this.password })
+  this.authService.login({ id: this.username, password: this.password })
     .subscribe({
       next: (response: any) => {
         if (response?.token && response?.usuario) {

@@ -11,7 +11,7 @@ export class InicioComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.loginService.printUserResumen();
+    //this.loginService.printUserResumen();
   }
 
 }

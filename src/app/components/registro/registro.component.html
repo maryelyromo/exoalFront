@@ -1,0 +1,118 @@
+<form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" novalidate class="p-4 bg-light rounded shadow-sm">
+
+  <h2 class="mb-4 text-center text-primary">Registro de Usuario</h2>
+
+  <div class="row gx-4 gy-3">
+
+    <!-- Apartado 1: Datos personales -->
+    <div class="col-md-6">
+      <h5 class="mb-3 border-bottom pb-2 text-secondary">Datos personales</h5>
+
+      <div class="form-floating mb-3">
+        <input type="text" id="nombre" formControlName="nombre" class="form-control" placeholder="Nombre"
+          [ngClass]="{'is-invalid': usuarioForm.get('nombre')?.touched && usuarioForm.get('nombre')?.invalid}">
+        <label for="nombre"><i class="bi bi-person-fill me-2"></i>Nombre</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('nombre')?.errors?.['required']">
+          El nombre es obligatorio.
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" id="apellidos" formControlName="apellidos" class="form-control" placeholder="Apellidos"
+          [ngClass]="{'is-invalid': usuarioForm.get('apellidos')?.touched && usuarioForm.get('apellidos')?.invalid}">
+        <label for="apellidos"><i class="bi bi-person-badge-fill me-2"></i>Apellidos</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('apellidos')?.errors?.['required']">
+          Los apellidos son obligatorios.
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="tel" id="telefono" formControlName="telefono" class="form-control" placeholder="Teléfono"
+          [ngClass]="{'is-invalid': usuarioForm.get('telefono')?.touched && usuarioForm.get('telefono')?.invalid}">
+        <label for="telefono"><i class="bi bi-telephone-fill me-2"></i>Teléfono</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('telefono')?.errors?.['required']">
+          El teléfono es obligatorio.
+        </div>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('telefono')?.errors?.['pattern']">
+          Número inválido (solo dígitos, 10 a 15 caracteres).
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="email" id="correo" formControlName="correo" class="form-control" placeholder="Correo"
+          [ngClass]="{'is-invalid': usuarioForm.get('correo')?.touched && usuarioForm.get('correo')?.invalid}">
+        <label for="correo"><i class="bi bi-envelope-fill me-2"></i>Correo electrónico</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('correo')?.errors?.['required']">
+          El correo es obligatorio.
+        </div>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('correo')?.errors?.['email']">
+          Correo inválido.
+        </div>
+      </div>
+    </div>
+
+    <!-- Apartado 2: Información laboral y contraseña -->
+    <div class="col-md-6">
+      <h5 class="mb-3 border-bottom pb-2 text-secondary">Información laboral</h5>
+
+      <div class="form-floating mb-3">
+        <input type="text" id="grado" formControlName="grado" class="form-control" placeholder="Grado"
+          [ngClass]="{'is-invalid': usuarioForm.get('grado')?.touched && usuarioForm.get('grado')?.invalid}">
+        <label for="grado"><i class="bi bi-mortarboard-fill me-2"></i>Grado</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('grado')?.errors?.['required']">
+          El grado es obligatorio.
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" id="cargo" formControlName="cargo" class="form-control" placeholder="Cargo"
+          [ngClass]="{'is-invalid': usuarioForm.get('cargo')?.touched && usuarioForm.get('cargo')?.invalid}">
+        <label for="cargo"><i class="bi bi-briefcase-fill me-2"></i>Cargo</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('cargo')?.errors?.['required']">
+          El cargo es obligatorio.
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" id="area_adscripcion" formControlName="area_adscripcion" class="form-control" placeholder="Área de Adscripción"
+          [ngClass]="{'is-invalid': usuarioForm.get('area_adscripcion')?.touched && usuarioForm.get('area_adscripcion')?.invalid}">
+        <label for="area_adscripcion"><i class="bi bi-building me-2"></i>Área de Adscripción</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('area_adscripcion')?.errors?.['required']">
+          El área de adscripción es obligatoria.
+        </div>
+      </div>
+
+      <h5 class="mb-3 border-bottom pb-2 text-secondary mt-4">Contraseña</h5>
+
+      <div class="form-floating mb-3">
+        <input type="password" id="contra" formControlName="contra" class="form-control" placeholder="Contraseña"
+          [ngClass]="{'is-invalid': usuarioForm.get('contra')?.touched && usuarioForm.get('contra')?.invalid}">
+        <label for="contra"><i class="bi bi-lock-fill me-2"></i>Contraseña</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('contra')?.errors?.['required']">
+          La contraseña es obligatoria.
+        </div>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('contra')?.errors?.['minlength']">
+          Debe tener al menos 6 caracteres.
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="password" id="confirmarContra" formControlName="confirmarContra" class="form-control" placeholder="Confirmar contraseña"
+          [ngClass]="{'is-invalid': (usuarioForm.get('confirmarContra')?.touched && usuarioForm.get('confirmarContra')?.invalid) || usuarioForm.errors?.['passwordMismatch']}">
+        <label for="confirmarContra"><i class="bi bi-lock-fill me-2"></i>Confirmar contraseña</label>
+        <div class="invalid-feedback" *ngIf="usuarioForm.get('confirmarContra')?.errors?.['required']">
+          Debes confirmar la contraseña.
+        </div>
+        <div class="invalid-feedback" *ngIf="usuarioForm.errors?.['passwordMismatch']">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-primary btn-lg shadow-sm">Registrar usuario</button>
+  </div>
+
+</form>
