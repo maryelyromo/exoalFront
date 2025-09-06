@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { NuevoproyectoComponent } from './components/nuevoproyecto/nuevoproyecto.component';
 
 
 
@@ -21,7 +22,8 @@ import { RegistroComponent } from './components/registro/registro.component';
     LoginComponent,
     MenuComponent,
     InicioComponent,
-    RegistroComponent
+    RegistroComponent,
+    NuevoproyectoComponent
   ],
   imports: [
     BrowserModule,

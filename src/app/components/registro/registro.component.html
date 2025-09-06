@@ -56,7 +56,7 @@
       <h5 class="mb-3 border-bottom pb-2 text-secondary">Información laboral</h5>
 
       <div class="form-floating mb-3">
-        <input type="text" id="grado" formControlName="grado" class="form-control" placeholder="Grado"
+        <input type="number" id="grado" formControlName="grado" class="form-control" placeholder="Grado"
           [ngClass]="{'is-invalid': usuarioForm.get('grado')?.touched && usuarioForm.get('grado')?.invalid}">
         <label for="grado"><i class="bi bi-mortarboard-fill me-2"></i>Grado</label>
         <div class="invalid-feedback" *ngIf="usuarioForm.get('grado')?.errors?.['required']">

@@ -1,0 +1,162 @@
+<!-- Mensaje de solo lectura -->
+<div *ngIf="proyectoForm.disabled" class="alert alert-info text-center">
+  <p>Ya has registrado un proyecto.
+  En espera la revisión del mismo.</p>
+</div>
+
+<form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()" class="container mt-5" style="max-width: 900px;">
+  <h2 class="mb-4 text-center">Datos del Proyecto</h2>
+
+  <div class="row g-4">
+
+    <!-- Nombre del Proyecto -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="text" id="nameProyecto" formControlName="NAME_PROYECT" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('NAME_PROYECT')?.touched && proyectoForm.get('NAME_PROYECT')?.invalid}"
+          placeholder="Nombre del Proyecto" />
+        <label for="nameProyecto"><i class="bi bi-journal-text me-2"></i>Nombre del Proyecto</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('NAME_PROYECT')?.errors?.['required']">El nombre del proyecto es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Disciplina -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="text" id="disciplina" formControlName="DISCIPLINA" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('DISCIPLINA')?.touched && proyectoForm.get('DISCIPLINA')?.invalid}"
+          placeholder="Disciplina" />
+        <label for="disciplina"><i class="bi bi-book me-2"></i>Disciplina</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('DISCIPLINA')?.errors?.['required']">La disciplina es obligatoria.</div>
+      </div>
+    </div>
+
+    <!-- Justificación -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <textarea id="justificacion" formControlName="JUSTIFICACION" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled" placeholder="Justificación" style="height: 100px;"
+          [ngClass]="{'is-invalid': proyectoForm.get('JUSTIFICACION')?.touched && proyectoForm.get('JUSTIFICACION')?.invalid}">
+        </textarea>
+        <label for="justificacion"><i class="bi bi-file-text me-2"></i>Justificación</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('JUSTIFICACION')?.errors?.['required']">La justificación es obligatoria.</div>
+      </div>
+    </div>
+
+    <!-- Antecedentes -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <textarea id="antecedentes" formControlName="ANTECEDENTES" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled" placeholder="Antecedentes" style="height: 100px;"
+          [ngClass]="{'is-invalid': proyectoForm.get('ANTECEDENTES')?.touched && proyectoForm.get('ANTECEDENTES')?.invalid}">
+        </textarea>
+        <label for="antecedentes"><i class="bi bi-clock-history me-2"></i>Antecedentes</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('ANTECEDENTES')?.errors?.['required']">Los antecedentes son obligatorios.</div>
+      </div>
+    </div>
+
+    <!-- Objetivo General -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <textarea id="objGral" formControlName="OBJ_GRAL" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled" placeholder="Objetivo General" style="height: 100px;"
+          [ngClass]="{'is-invalid': proyectoForm.get('OBJ_GRAL')?.touched && proyectoForm.get('OBJ_GRAL')?.invalid}">
+        </textarea>
+        <label for="objGral"><i class="bi bi-bullseye me-2"></i>Objetivo General</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('OBJ_GRAL')?.errors?.['required']">El objetivo general es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Objetivos Específicos -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <textarea id="objEsp" formControlName="OBJ_ESP" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled" placeholder="Objetivos Específicos" style="height: 100px;"
+          [ngClass]="{'is-invalid': proyectoForm.get('OBJ_ESP')?.touched && proyectoForm.get('OBJ_ESP')?.invalid}">
+        </textarea>
+        <label for="objEsp"><i class="bi bi-list-task me-2"></i>Objetivos Específicos</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('OBJ_ESP')?.errors?.['required']">Los objetivos específicos son obligatorios.</div>
+      </div>
+    </div>
+
+    <!-- Entregables -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="text" id="entregables" formControlName="ENTREGABLES" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('ENTREGABLES')?.touched && proyectoForm.get('ENTREGABLES')?.invalid}"
+          placeholder="Entregables" />
+        <label for="entregables"><i class="bi bi-box-seam me-2"></i>Entregables</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('ENTREGABLES')?.errors?.['required']">Los entregables son obligatorios.</div>
+      </div>
+    </div>
+
+    <!-- Monto -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="number" id="monto" formControlName="MONTO" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('MONTO')?.touched && proyectoForm.get('MONTO')?.invalid}"
+          placeholder="Monto" />
+        <label for="monto"><i class="bi bi-currency-dollar me-2"></i>Monto</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('MONTO')?.errors?.['required']">El monto es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Programa -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="text" id="programa" formControlName="PROGAMA" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('PROGAMA')?.touched && proyectoForm.get('PROGAMA')?.invalid}"
+          placeholder="Programa" />
+        <label for="programa"><i class="bi bi-kanban me-2"></i>Programa</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('PROGAMA')?.errors?.['required']">El programa es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Adjuntar -->
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="text" id="adjuntar" formControlName="ADJUNTAR" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled"
+          [ngClass]="{'is-invalid': proyectoForm.get('ADJUNTAR')?.touched && proyectoForm.get('ADJUNTAR')?.invalid}"
+          placeholder="Adjuntar" />
+        <label for="adjuntar"><i class="bi bi-paperclip me-2"></i>Adjuntar</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('ADJUNTAR')?.errors?.['required']">Este campo es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Información Adicional -->
+    <div class="col-12">
+      <div class="form-floating">
+        <textarea id="infoAdd" formControlName="INFO_ADD" class="form-control"
+          [class.readonly-style]="proyectoForm.disabled" placeholder="Información Adicional" style="height: 100px;"
+          [ngClass]="{'is-invalid': proyectoForm.get('INFO_ADD')?.touched && proyectoForm.get('INFO_ADD')?.invalid}">
+        </textarea>
+        <label for="infoAdd"><i class="bi bi-info-circle me-2"></i>Información Adicional</label>
+        <div class="invalid-feedback"
+          *ngIf="proyectoForm.get('INFO_ADD')?.errors?.['required']">La información adicional es obligatoria.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Botón de envío -->
+  <button type="submit" class="btn btn-primary w-100 mt-4"
+    [disabled]="proyectoForm.invalid || proyectoForm.disabled">
+    {{ proyectoForm.disabled ? 'Proyecto ya registrado' : 'Crear Proyecto' }}
+  </button>
+</form>

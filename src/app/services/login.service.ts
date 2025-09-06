@@ -17,7 +17,7 @@ export class LoginService {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         // Asume que la respuesta tiene: { token: string, usuario: { permisos: string, nombre: string } }
-        this.saveUserData(response.token, response.usuario.permisos, response.usuario.nombre);
+        this.saveUserData(response.token, response.usuario.permisos, response.usuario.nombre, response.usuario.id_usuario);
       }),
       catchError((error) => {
         console.error('❌ Error en la solicitud HTTP:', error);
@@ -26,10 +26,11 @@ export class LoginService {
     );
   }
 
-  saveUserData(token: string, userRole: string, username: string): void {
+  saveUserData(token: string, userRole: string, username: string, userId: number): void {
     localStorage.setItem('token', token);
     localStorage.setItem('userRole', userRole); // Nuevo: 'Administrador', 'Sustentante', etc.
     localStorage.setItem('username', username);
+    localStorage.setItem('userId', userId.toString());
   }
 
   getToken(): string | null {

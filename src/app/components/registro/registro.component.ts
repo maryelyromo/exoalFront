@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NuserService } from 'src/app/services/nuser.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { NuserService } from 'src/app/services/nuser.service';
 export class RegistroComponent {
    usuarioForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private user: NuserService) {
+  constructor(private fb: FormBuilder, private user: NuserService, private router: Router) {
     this.usuarioForm = this.fb.group({
       contra: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContra: ['', Validators.required],
@@ -32,20 +33,24 @@ export class RegistroComponent {
   }
 
   onSubmit() {
-    if (this.usuarioForm.valid) {
-      console.log('Formulario válido:', this.usuarioForm.value);
-      this.user.crearUsuario(this.usuarioForm.value).subscribe({
-        next: (response) => {
-          console.log('✔️ Usuario creado con éxito:', response);
-          // Aquí puedes agregar lógica adicional, como redirigir al usuario o mostrar un mensaje de éxito
-        },
-        error: (error) => {
-          console.error('❌Error al crear el usuario:', error);
-          // Aquí puedes manejar el error, como mostrar un mensaje al usuario
-        }
-      });
-    } else {
-      this.usuarioForm.markAllAsTouched();
-    }
+  if (this.usuarioForm.valid) {
+    this.user.crearUsuario(this.usuarioForm.value).subscribe({
+      next: (response) => {
+        console.log('✔️ Usuario creado con éxito:', response);
+        // Mostrar alerta con el ID del usuario creado
+        alert(`✔️ Usuario creado exitosamente.\nID asignado: ${response.id}\nPor favor, guarda este ID para futuras referencias.`);
+        this.router.navigate(['/login']);
+        alert('💡 Inicia sesión con tus credenciales.');
+        // Limpiar el formulario
+        this.usuarioForm.reset();
+      },
+      error: (error) => {
+        console.error('❌ Error al crear el usuario:', error);
+        alert('❌ Ocurrió un error al crear el usuario. Intenta nuevamente.');
+      }
+    });
+  } else {
+    this.usuarioForm.markAllAsTouched();
   }
+}
 }
