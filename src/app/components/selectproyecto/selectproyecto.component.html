@@ -1,0 +1,57 @@
+<div class="container mt-5">
+
+  <!-- 🔍 Barra de búsqueda -->
+  <div class="input-group mb-3">
+    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+    <input type="text" class="form-control border-start-0" placeholder="Buscar proyecto por nombre..."
+           [(ngModel)]="busqueda" (input)="filtrarProyectos()" />
+  </div>
+
+  <!-- 📋 Tabla de proyectos -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>  
+          <th>Nombre</th>
+          <th>Disciplina</th>
+          <th>Justificación</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proyecto of proyectosFiltrados" (click)="seleccionarProyecto(proyecto)" style="cursor: pointer;">
+          <td>{{ proyecto.ID_PROYECTO }}</td>
+          <td>{{ proyecto.NAME_PROYECT }}</td>
+          <td>{{ proyecto.DISCIPLINA }}</td>
+          <td>{{ proyecto.JUSTIFICACION | slice:0:30 }}...</td>
+          <td>{{ proyecto.MONTO | currency:'USD' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 📝 Detalles del proyecto seleccionado -->
+  <div *ngIf="proyectoSeleccionado" class="card mt-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Detalles del Proyecto Seleccionado</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>Nombre:</strong> {{ proyectoSeleccionado.NAME_PROYECT }}</p>
+      <p><strong>Disciplina:</strong> {{ proyectoSeleccionado.DISCIPLINA }}</p>
+      <p><strong>Justificación:</strong> {{ proyectoSeleccionado.JUSTIFICACION }}</p>
+      <p><strong>Antecedentes:</strong> {{ proyectoSeleccionado.ANTECEDENTES }}</p>
+      <p><strong>Objetivo General:</strong> {{ proyectoSeleccionado.OBJ_GRAL }}</p>
+      <p><strong>Objetivos Específicos:</strong> {{ proyectoSeleccionado.OBJ_ESP }}</p>
+      <p><strong>Entregables:</strong> {{ proyectoSeleccionado.ENTREGABLES }}</p>
+      <p><strong>Monto:</strong> {{ proyectoSeleccionado.MONTO | currency:'USD' }}</p>
+      <p><strong>Programa:</strong> {{ proyectoSeleccionado.PROGAMA }}</p>
+      <p><strong>Adjuntar:</strong> {{ proyectoSeleccionado.ADJUNTAR }}</p>
+      <p><strong>Info Adicional:</strong> {{ proyectoSeleccionado.INFO_ADD }}</p>
+
+      <button class="btn btn-success w-100 mt-3" (click)="asignarProyecto()">
+        <i class="bi bi-check-circle me-2"></i>Seleccionar Proyecto
+      </button>
+    </div>
+  </div>
+</div>

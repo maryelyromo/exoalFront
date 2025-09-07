@@ -12,6 +12,12 @@ import { MenuComponent } from './components/menu/menu.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { NuevoproyectoComponent } from './components/nuevoproyecto/nuevoproyecto.component';
+import { SelectproyectoComponent } from './components/selectproyecto/selectproyecto.component';
+import { RevisionproyectoComponent } from './components/revisionproyecto/revisionproyecto.component';
+import { AdmincuentasComponent } from './components/admincuentas/admincuentas.component';
+import { ProyectosrevisadosComponent } from './components/proyectosrevisados/proyectosrevisados.component';
+import { FooterComponent } from './components/footer/footer.component';
+
 
 
 
@@ -23,7 +29,12 @@ import { NuevoproyectoComponent } from './components/nuevoproyecto/nuevoproyecto
     MenuComponent,
     InicioComponent,
     RegistroComponent,
-    NuevoproyectoComponent
+    NuevoproyectoComponent,
+    SelectproyectoComponent,
+    RevisionproyectoComponent,
+    AdmincuentasComponent,
+    ProyectosrevisadosComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

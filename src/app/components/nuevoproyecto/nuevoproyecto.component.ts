@@ -69,7 +69,7 @@ this.proyeto.dataProyecto().subscribe({
   },
   error: (error) => {
     console.error('❌ Error al obtener datos del proyecto:', error);
-    alert('Error al cargar los datos del proyecto.');
+    //alert('⚠️ Puedes registrar un nuevo proyecto.');
   }
 });
 }

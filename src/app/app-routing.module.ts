@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { NuevoproyectoComponent } from './components/nuevoproyecto/nuevoproyecto.component';
+import { SelectproyectoComponent } from './components/selectproyecto/selectproyecto.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,12 @@ const routes: Routes = [
   { 
     path: 'crearProyecto', 
     component: NuevoproyectoComponent, 
+    canActivate: [AuthGuard],
+    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+  },
+  { 
+    path: 'selectProyecto', 
+    component: SelectproyectoComponent, 
     canActivate: [AuthGuard],
     data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
   },
