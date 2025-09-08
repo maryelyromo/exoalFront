@@ -1,1 +1,182 @@
-<p>revisionproyecto works!</p>
+<div class="container mt-4">
+  <div *ngFor="let proyecto of proyectos; let i = index" class="mb-5">
+    <h4 class="mb-3">{{ proyecto.NAME_PROYECT }} ({{ proyecto.DISCIPLINA }})</h4>
+
+          <!-- Tarjeta: Justificación -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#justificacion' + i">
+              <i class="bi bi-journal-text me-2"></i>Justificación
+            </button>
+          </div>
+          <div [id]="'justificacion' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.JUSTIFICACION }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Antecedentes -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#antecedentes' + i">
+              <i class="bi bi-clock-history me-2"></i>Antecedentes
+            </button>
+          </div>
+          <div [id]="'antecedentes' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.ANTECEDENTES }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Objetivo General -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#objGral' + i">
+              <i class="bi bi-bullseye me-2"></i>Objetivo General
+            </button>
+          </div>
+          <div [id]="'objGral' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.OBJ_GRAL }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Objetivo Específico -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#objEsp' + i">
+              <i class="bi bi-bullseye me-2"></i>Objetivo Específico
+            </button>
+          </div>
+          <div [id]="'objEsp' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.OBJ_ESP }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Entregables -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#entregables' + i">
+              <i class="bi bi-box-seam me-2"></i>Entregables
+            </button>
+          </div>
+          <div [id]="'entregables' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.ENTREGABLES }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Monto -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#monto' + i">
+              <i class="bi bi-cash-coin me-2"></i>Monto
+            </button>
+          </div>
+          <div [id]="'monto' + i" class="collapse">
+            <div class="card-body">
+              ${{ proyecto.MONTO }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Programa -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#programa' + i">
+              <i class="bi bi-journals me-2"></i>Programa
+            </button>
+          </div>
+          <div [id]="'programa' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.PROGAMA }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Información Adicional -->
+        <div class="card mb-2 shadow-sm">
+          <div class="card-header">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#infoAdd' + i">
+              <i class="bi bi-info-circle me-2"></i>Información Adicional
+            </button>
+          </div>
+          <div [id]="'infoAdd' + i" class="collapse">
+            <div class="card-body">
+              {{ proyecto.INFO_ADD }}
+            </div>
+          </div>
+        </div>
+
+
+    <!-- Formulario de Evaluación -->
+      <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-clipboard-check me-2"></i>
+          Evaluación del Proyecto
+        </div>
+        <div class="card-body">
+          <form [formGroup]="getFormGroup(i)" (ngSubmit)="onSubmit(i)">
+            <div class="row g-3">
+
+              <!-- Campos tipo select con form-floating -->
+              <div class="col-md-4" *ngFor="let campo of ['RELACION','EXTENSION','DISENO','RIESGOS','FORMA','ANALISIS']">
+                <div class="form-floating">
+                  <select class="form-select"
+                          [formControlName]="campo"
+                          [id]="campo + i"
+                          [ngClass]="{
+                            'is-invalid': getFormGroup(i).get(campo)?.touched && getFormGroup(i).get(campo)?.invalid
+                          }">
+                    <option value="" disabled selected>Seleccione</option>
+                    <option *ngFor="let c of criterios" [value]="c">{{ c }}</option>
+                  </select>
+                  <label [for]="campo + i">
+                    <i class="bi bi-ui-checks-grid me-2"></i>{{ campo }}
+                  </label>
+                  <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campo de Recomendaciones -->
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea formControlName="RECOMENDACIONES"
+                            class="form-control"
+                            placeholder="Recomendaciones"
+                            style="height: 120px;"
+                            [id]="'recomendaciones' + i"
+                            [ngClass]="{
+                              'is-invalid': getFormGroup(i).get('RECOMENDACIONES')?.touched &&
+                                            getFormGroup(i).get('RECOMENDACIONES')?.invalid
+                            }"></textarea>
+                  <label [for]="'recomendaciones' + i">
+                    <i class="bi bi-chat-left-text me-2"></i>Recomendaciones
+                  </label>
+                  <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botón de envío -->
+              <div class="col-12 text-end mt-3">
+                <button class="btn btn-success" type="submit" [disabled]="getFormGroup(i).invalid || getFormGroup(i).disabled">
+                  <i class="bi bi-send-fill me-2"></i>Enviar Evaluación
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+  </div>
+</div>

@@ -18,6 +18,19 @@ export interface Proyecto {
   ID_REVISOR: number | null;
   ID_SUSTENTANTE: number;
 }
+
+export interface Criterios {
+  ID_PROYECTO: number;
+  RELACION: string;
+  EXTENSION: string;
+  DISENO: string;
+  RIESGOS: string;
+  FORMA: string;
+  ANALISIS: string;
+  RECOMENDACIONES: string;
+  ID_REVISOR: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,12 +46,16 @@ export class RevisorService {
     return this.http.post(this.bduser + 'asignarRevisor', {id_revisor, id_proyecto});
   }
 
-  getProyectoById(id: number){
-    return this.http.post<Proyecto>(this.bduser + 'data/proyectoById', {ID_PROYECT: id});
+  getProyectoarevisar(id_revisor: number): Observable<Proyecto[]> {
+    return this.http.post<Proyecto[]>(this.bduser + 'data/proyectoarevisar', { id_revisor });
   }
 
   revisorActivo(id_revisor: number): Observable<any> {
   return this.http.post<any>(this.bduser + 'revisorActivo', { id_revisor });
-}
+  }
+
+  setCriterios(criterios: Criterios){
+    return this.http.post(this.bduser + 'data/proyectoRevisado', criterios);
+  }
 
 }

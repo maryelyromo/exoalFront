@@ -1,0 +1,56 @@
+/* Añade sombra y bordes más suaves a las cards */
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Botones de los headers */
+.card-header button {
+  text-decoration: none;
+  font-weight: 600;
+  color: #0d6efd;
+  font-size: 1rem;
+}
+
+.card-header button:hover {
+  color: #0a58ca;
+}
+
+/* Card de evaluación */
+.card-body form {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Mejora el espaciado entre las secciones del formulario */
+form .form-label {
+  font-weight: 500;
+}
+
+form .form-select,
+form .form-control {
+  border-radius: 0.375rem;
+  border-color: #ced4da;
+}
+
+form button[type="submit"] {
+  min-width: 200px;
+}
+
+/* Mejora el espaciado entre cada grupo de tarjetas */
+.container > div {
+  padding: 1.5rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Títulos de proyecto */
+h4 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}

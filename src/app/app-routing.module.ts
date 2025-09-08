@@ -6,6 +6,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { NuevoproyectoComponent } from './components/nuevoproyecto/nuevoproyecto.component';
 import { SelectproyectoComponent } from './components/selectproyecto/selectproyecto.component';
+import { RevisionproyectoComponent } from './components/revisionproyecto/revisionproyecto.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,12 @@ const routes: Routes = [
   { 
     path: 'selectProyecto', 
     component: SelectproyectoComponent, 
+    canActivate: [AuthGuard],
+    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+  },
+  { 
+    path: 'revisionProyecto', 
+    component: RevisionproyectoComponent, 
     canActivate: [AuthGuard],
     data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
   },
