@@ -1,3 +1,5 @@
+// src/app/guards/auth.guard.ts
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
@@ -13,29 +15,28 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    //console.log('AuthGuard ejecutado');
-    //console.log('isAuthenticated:', this.authService.isAuthenticated());
-    //console.log('userRole:', this.authService.getUserRole());
+    const allowedRoles: string[] = route.data['allowedRoles'];
 
-    const requiredRole: string = route.data['requiredRole'];
-
+    // 1. Validar autenticación
     if (!this.authService.isAuthenticated()) {
-      //console.warn('⛔ Usuario no autenticado. Redirigiendo a /login');
+      console.warn('🔐 No autenticado. Redirigiendo a /login');
       this.router.navigate(['/login']);
       return false;
     }
 
+    // 2. Validar si está bloqueado
     if (this.authService.isBloqueado()) {
-      //console.warn('⛔ Usuario bloqueado. Redirigiendo a /blocked');
-      this.router.navigate(['/blocked']);
+      console.warn('⛔ Usuario bloqueado. Redirigiendo a /login');
+      this.router.navigate(['/login']);
       return false;
     }
 
-    if (requiredRole) {
+    // 3. Validar rol permitido
+    if (allowedRoles && allowedRoles.length > 0) {
       const userRole = this.authService.getUserRole();
-      if (userRole !== requiredRole) {
-        //console.warn(`⛔ Rol insuficiente. Requiere: ${requiredRole}, Usuario: ${userRole}`);
-        this.router.navigate(['/unauthorized']);
+      if (!allowedRoles.includes(userRole)) {
+        console.warn(`🚫 Acceso denegado. Rol "${userRole}" no permitido. Se requiere uno de: ${allowedRoles.join(', ')}`);
+        this.router.navigate(['/login']);
         return false;
       }
     }

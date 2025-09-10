@@ -16,59 +16,55 @@ import { CpasswordComponent } from './components/cpassword/cpassword.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  //Componente al que todos pueden acceder
   { 
     path: 'inicio', 
-    component: InicioComponent, 
-    canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
-  },
+    component: InicioComponent }, // Todos pueden entrar
    { 
     path: 'registro', 
-    component: RegistroComponent, 
-    canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    component: RegistroComponent,   // Todos pueden entrar
   },
   { 
     path: 'crearProyecto', 
     component: NuevoproyectoComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: [ 'Sustentante' ] } // Solo sustentante puede entrar
   },
   { 
     path: 'selectProyecto', 
     component: SelectproyectoComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: [ 'Revisor'] } // Solo estos pueden entrar
   },
   { 
     path: 'revisionProyecto', 
     component: RevisionproyectoComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: ['Revisor'] } // Solo estos pueden entrar
   },
   { 
     path: 'cierreProyectos', 
     component: CierreproyectosComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: ['Administrador'] } // Solo estos pueden entrar
   },
     { 
     path: 'adminUsers', 
     component: AdmincuentasComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: ['Administrador'] } // Solo estos pueden entrar
   },
      { 
     path: 'proyectosRevisados', 
     component: ProyectosrevisadosComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: ['Administrador' ] } // Solo estos pueden entrar
   },
   { 
     path: 'misProyectos', 
     component: MisproyectosComponent, 
     canActivate: [AuthGuard],
-    data: { allowedRoles: ['Administrador', 'Sustentante', 'Revisor'] } // Solo estos pueden entrar
+    data: { allowedRoles: ['Sustentante'] } // Solo estos pueden entrar
   },
    { 
     path: 'cpassword', 

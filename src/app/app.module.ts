@@ -41,7 +41,7 @@ import { CpasswordComponent } from './components/cpassword/cpassword.component';
     FooterComponent,
     CierreproyectosComponent,
     MisproyectosComponent,
-    CpasswordComponent
+    CpasswordComponent,
   ],
   imports: [
     BrowserModule,

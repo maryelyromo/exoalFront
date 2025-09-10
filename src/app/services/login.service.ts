@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -8,19 +8,26 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService { 
- private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000';
+
+  // BehaviorSubject para emitir el rol actual; inicia con el rol almacenado o 'Bloqueado'
+  private userRoleSubject = new BehaviorSubject<string>(this.getUserRole());
+  userRole$ = this.userRoleSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { id: string; password: string }): Observable<any> {
-    //console.log('📤 Enviando credenciales al servidor:', credentials);
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
-        // Asume que la respuesta tiene: { token: string, usuario: { permisos: string, nombre: string } }
-        this.saveUserData(response.token, response.usuario.permisos, response.usuario.nombre, response.usuario.id_usuario);
+        this.saveUserData(
+          response.token, 
+          response.usuario.permisos, 
+          response.usuario.nombre, 
+          response.usuario.id_usuario
+        );
+        this.userRoleSubject.next(response.usuario.permisos);  // Actualiza el BehaviorSubject
       }),
       catchError((error) => {
-        //console.error('❌ Error en la solicitud HTTP:', error);
         return throwError(() => new Error('Error en el servidor'));
       })
     );
@@ -28,7 +35,7 @@ export class LoginService {
 
   saveUserData(token: string, userRole: string, username: string, userId: number): void {
     localStorage.setItem('token', token);
-    localStorage.setItem('userRole', userRole); // Nuevo: 'Administrador', 'Sustentante', etc.
+    localStorage.setItem('userRole', userRole);
     localStorage.setItem('username', username);
     localStorage.setItem('userId', userId.toString());
   }
@@ -38,7 +45,7 @@ export class LoginService {
   }
 
   getUserRole(): string {
-    return localStorage.getItem('userRole') || 'Bloqueado'; // Rol predeterminado si no hay ninguno
+    return localStorage.getItem('userRole') || 'Bloqueado';
   }
 
   getUsername(): string | null {
@@ -46,10 +53,10 @@ export class LoginService {
   }
 
   logout(): void {
-    //console.log('🚪 Cerrando sesión, limpiando localStorage');
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     localStorage.removeItem('username');
+    this.userRoleSubject.next('Bloqueado'); // Actualiza el BehaviorSubject para reflejar logout
     this.router.navigate(['/login']);
   }
 
@@ -78,7 +85,7 @@ export class LoginService {
   }
 
   getUserResumen(): any {
-    const resumen = {
+    return {
       isAuthenticated: this.isAuthenticated(),
       isAdministrador: this.isAdministrador(),
       isSustentante: this.isSustentante(),
@@ -90,9 +97,6 @@ export class LoginService {
       },
       status: this.getUserStatus()
     };
-
-    //console.log('📋 Resumen del usuario:', resumen);
-    return resumen;
   }
 
   getUserStatus(): string {
@@ -119,23 +123,6 @@ export class LoginService {
     return 'Usuario autenticado';
   }
 
-  printUserResumen(): void {
-    const resumen = this.getUserResumen();
-
-    //console.log('👤 RESUMEN DEL USUARIO 👤');
-    //console.log('──────────────────────────');
-    //console.log(`✅ Autenticado: ${resumen.isAuthenticated ? 'Sí' : 'No'}`);
-    //console.log(`🛠️ Administrador: ${resumen.isAdministrador ? 'Sí' : 'No'}`);
-    //console.log(`📝 Revisor: ${resumen.isRevisor ? 'Sí' : 'No'}`);
-    //console.log(`📚 Sustentante: ${resumen.isSustentante ? 'Sí' : 'No'}`);
-    //console.log(`⛔ Bloqueado: ${resumen.isBloqueado ? 'Sí' : 'No'}`);
-    //console.log('──────────────────────────');
-    //console.log(`📊 Rol: ${resumen.userData.userRole}`);
-    //console.log(`👤 Nombre: ${resumen.userData.username}`);
-    //console.log(`📋 Estado: ${resumen.status}`);
-    //console.log('──────────────────────────');
-  }
-
   getQuickStatus(): string {
     const token = this.getToken();
     const role = this.getUserRole();
@@ -148,4 +135,3 @@ export class LoginService {
     return `${this.isAuthenticated() ? '✅' : '❌'} ${name || 'Usuario'} - Rol: ${role}`;
   }
 }
-

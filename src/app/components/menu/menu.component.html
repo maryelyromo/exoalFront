@@ -1,16 +1,85 @@
 <nav class="animated-nav">
   <ul>
-    <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
-    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-    <li><a routerLink="/registro" routerLinkActive="active">Registro</a></li>   
-    <li><a routerLink="/crearProyecto" routerLinkActive="active">Nuevo Proyecto</a></li>  
-    <li><a routerLink="/selectProyecto" routerLinkActive="active">Seleccionar Proyecto</a></li>
-    <li><a routerLink="/revisionProyecto" routerLinkActive="active">Revisión Proyecto</a></li>
-    <li><a routerLink="/cierreProyectos" routerLinkActive="active">Cierre de Proyectos</a></li>
-    <li><a routerLink="/adminUsers" routerLinkActive="active">Administrar Usuarios</a></li>
-    <li><a routerLink="/proyectosRevisados" routerLinkActive="active">Proyectos Revisados</a></li>
-    <li><a routerLink="/misProyectos" routerLinkActive="active">Mis Proyectos</a></li>
-    <li><a routerLink="/cpassword" routerLinkActive="active">Cambiar Contraseña</a></li>
-    <li><a (click)="salir()" routerLinkActive="active">Cerrar Sesión</a></li>
+    <li *ngIf="!userRole || userRole === 'Bloqueado'">
+      <a routerLink="/inicio" routerLinkActive="active">
+        <i class="bi bi-house-door-fill" style="margin-right:6px;"></i> Inicio
+      </a>
+    </li>
+
+    <li *ngIf="!userRole || userRole === 'Bloqueado'">
+      <a routerLink="/login" routerLinkActive="active">
+        <i class="bi bi-box-arrow-in-right" style="margin-right:6px;"></i> Login
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Sustentante'">
+      <a routerLink="/crearProyecto" routerLinkActive="active">
+        <i class="bi bi-file-earmark-plus-fill" style="margin-right:6px;"></i> Nuevo Proyecto
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Revisor'">
+      <a routerLink="/selectProyecto" routerLinkActive="active">
+        <i class="bi bi-folder-symlink-fill" style="margin-right:6px;"></i> Seleccionar Proyecto
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Revisor'">
+      <a routerLink="/revisionProyecto" routerLinkActive="active">
+        <i class="bi bi-clipboard-check-fill" style="margin-right:6px;"></i> Revisión Proyecto
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Administrador'">
+      <a routerLink="/cierreProyectos" routerLinkActive="active">
+        <i class="bi bi-lock-fill" style="margin-right:6px;"></i> Cierre de Proyectos
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Administrador'">
+      <a routerLink="/adminUsers" routerLinkActive="active">
+        <i class="bi bi-people-fill" style="margin-right:6px;"></i> Administrar Usuarios
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Administrador'">
+      <a routerLink="/proyectosRevisados" routerLinkActive="active">
+        <i class="bi bi-check2-circle" style="margin-right:6px;"></i> Proyectos Revisados
+      </a>
+    </li>
+
+    <li *ngIf="userRole === 'Sustentante'">
+      <a routerLink="/misProyectos" routerLinkActive="active">
+        <i class="bi bi-folder-fill" style="margin-right:6px;"></i> Mis Proyectos
+      </a>
+    </li>
+
+    <!-- Menú desplegable usuario -->
+    <li class="dropdown" *ngIf="userRole && userRole !== 'Bloqueado'" style="position: relative;">
+      <a href="#" (click)="toggleDropdown($event)" style="cursor: pointer;">
+        <i class="bi bi-person-circle" style="margin-right:6px;"></i> Usuario <i class="bi bi-caret-down-fill"></i>
+      </a>
+      <ul class="dropdown-menu" [class.show]="dropdownOpen" style="
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        padding: 10px 0;
+        border-radius: 5px;
+        min-width: 180px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        display: none;">
+        <li>
+          <a routerLink="/cpassword" routerLinkActive="active" style="display: flex; align-items: center; padding: 8px 20px; color: white; text-decoration: none;">
+            <i class="bi bi-key-fill" style="margin-right: 8px;"></i> Cambiar Contraseña
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="salir()" style="display: flex; align-items: center; padding: 8px 20px; color: white; text-decoration: none;">
+            <i class="bi bi-box-arrow-right" style="margin-right: 8px;"></i> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
