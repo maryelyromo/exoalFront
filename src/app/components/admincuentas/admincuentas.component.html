@@ -1,1 +1,46 @@
-<p>admincuentas works!</p>
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Administración de Cuentas</h2>
+
+  <!-- Barra de búsqueda -->
+  <div class="input-group mb-3 w-50 mx-auto">
+    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+    <input type="text" class="form-control" placeholder="Buscar en las cuentas" [(ngModel)]="filtroBusqueda">
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <table class="table table-hover table-bordered text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Permiso actual</th>
+        <th>Modificar Permiso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuariosFiltrados()">
+        <td>{{ usuario.ID_USUARIO }}</td>
+        <td>{{ usuario.NOMBRE }}</td>
+        <td>{{ usuario.APELLIDOS }}</td>
+        <td>
+          <span [ngClass]="getBadgeClass(usuario.PERMISOS)">
+            <i [class]="getPermisoIcon(usuario.PERMISOS)" class="me-1"></i>
+            {{ usuario.PERMISOS }}
+          </span>
+        </td>
+        <td>
+          <button
+            *ngFor="let permiso of permisos"
+            class="btn btn-sm mx-1"
+            [ngClass]="getButtonClass(usuario.PERMISOS, permiso.valor)"
+            (click)="cambiarPermiso(usuario, permiso.valor)"
+            [title]="permiso.nombre"
+          >
+            <i [class]="permiso.icono"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

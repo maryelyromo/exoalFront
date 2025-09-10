@@ -17,6 +17,10 @@ import { RevisionproyectoComponent } from './components/revisionproyecto/revisio
 import { AdmincuentasComponent } from './components/admincuentas/admincuentas.component';
 import { ProyectosrevisadosComponent } from './components/proyectosrevisados/proyectosrevisados.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CierreproyectosComponent } from './components/cierreproyectos/cierreproyectos.component';
+import { MisproyectosComponent } from './components/misproyectos/misproyectos.component';
+import { CpasswordComponent } from './components/cpassword/cpassword.component';
+
 
 
 
@@ -35,6 +39,9 @@ import { FooterComponent } from './components/footer/footer.component';
     AdmincuentasComponent,
     ProyectosrevisadosComponent,
     FooterComponent,
+    CierreproyectosComponent,
+    MisproyectosComponent,
+    CpasswordComponent
   ],
   imports: [
     BrowserModule,

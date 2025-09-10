@@ -1,13 +1,14 @@
 /* Contenedor del nav */
 .animated-nav {
   width: 100%;
-  background: #2c3e50;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #1f1c2c, #928dab); /* mismo fondo que el footer */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   position: fixed;
   top: 0;
   z-index: 999;
 }
 
+/* Lista horizontal centrada */
 .animated-nav ul {
   list-style: none;
   display: flex;
@@ -16,21 +17,24 @@
   margin: 0;
 }
 
+/* Espaciado entre ítems */
 .animated-nav li {
-  margin: 0 20px;
+  margin: 0 25px;
 }
 
+/* Enlaces del menú */
 .animated-nav a {
   position: relative;
   display: inline-block;
   padding: 20px 0;
-  color: #ecf0f1;
+  color: #ffffff;
   text-decoration: none;
   font-size: 16px;
   text-transform: uppercase;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
+/* Línea animada inferior */
 .animated-nav a::after {
   content: '';
   position: absolute;
@@ -38,32 +42,34 @@
   height: 3px;
   left: 0;
   bottom: 10px;
-  background: #1abc9c;
+  background: #00ffd5; /* más llamativo */
   transition: width 0.4s ease;
 }
 
+/* Hover: subrayado animado + color */
 .animated-nav a:hover::after {
   width: 100%;
 }
 
 .animated-nav a:hover {
-  color: #1abc9c;
+  color: #00ffd5;
   transform: scale(1.05);
 }
 
-/* Estilo para enlace activo */
+/* Enlace activo */
 .animated-nav a.active {
-  color: #1abc9c;
+  color: #00ffd5;
 }
 
 .animated-nav a.active::after {
   width: 100%;
 }
 
-/* Espaciado para el contenido que viene después del menú */
+/* Espaciado del body (debajo del nav) */
 body {
   margin: 0;
   padding-top: 70px;
-  font-family: sans-serif;
-  background: #34495e;
+  font-family: 'Segoe UI', sans-serif;
+  background: #2e3b55;
+  color: #ecf0f1;
 }

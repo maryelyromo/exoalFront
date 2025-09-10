@@ -13,14 +13,14 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { id: string; password: string }): Observable<any> {
-    console.log('📤 Enviando credenciales al servidor:', credentials);
+    //console.log('📤 Enviando credenciales al servidor:', credentials);
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         // Asume que la respuesta tiene: { token: string, usuario: { permisos: string, nombre: string } }
         this.saveUserData(response.token, response.usuario.permisos, response.usuario.nombre, response.usuario.id_usuario);
       }),
       catchError((error) => {
-        console.error('❌ Error en la solicitud HTTP:', error);
+        //console.error('❌ Error en la solicitud HTTP:', error);
         return throwError(() => new Error('Error en el servidor'));
       })
     );
@@ -46,7 +46,7 @@ export class LoginService {
   }
 
   logout(): void {
-    console.log('🚪 Cerrando sesión, limpiando localStorage');
+    //console.log('🚪 Cerrando sesión, limpiando localStorage');
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     localStorage.removeItem('username');
@@ -91,7 +91,7 @@ export class LoginService {
       status: this.getUserStatus()
     };
 
-    console.log('📋 Resumen del usuario:', resumen);
+    //console.log('📋 Resumen del usuario:', resumen);
     return resumen;
   }
 
@@ -122,18 +122,18 @@ export class LoginService {
   printUserResumen(): void {
     const resumen = this.getUserResumen();
 
-    console.log('👤 RESUMEN DEL USUARIO 👤');
-    console.log('──────────────────────────');
-    console.log(`✅ Autenticado: ${resumen.isAuthenticated ? 'Sí' : 'No'}`);
-    console.log(`🛠️ Administrador: ${resumen.isAdministrador ? 'Sí' : 'No'}`);
-    console.log(`📝 Revisor: ${resumen.isRevisor ? 'Sí' : 'No'}`);
-    console.log(`📚 Sustentante: ${resumen.isSustentante ? 'Sí' : 'No'}`);
-    console.log(`⛔ Bloqueado: ${resumen.isBloqueado ? 'Sí' : 'No'}`);
-    console.log('──────────────────────────');
-    console.log(`📊 Rol: ${resumen.userData.userRole}`);
-    console.log(`👤 Nombre: ${resumen.userData.username}`);
-    console.log(`📋 Estado: ${resumen.status}`);
-    console.log('──────────────────────────');
+    //console.log('👤 RESUMEN DEL USUARIO 👤');
+    //console.log('──────────────────────────');
+    //console.log(`✅ Autenticado: ${resumen.isAuthenticated ? 'Sí' : 'No'}`);
+    //console.log(`🛠️ Administrador: ${resumen.isAdministrador ? 'Sí' : 'No'}`);
+    //console.log(`📝 Revisor: ${resumen.isRevisor ? 'Sí' : 'No'}`);
+    //console.log(`📚 Sustentante: ${resumen.isSustentante ? 'Sí' : 'No'}`);
+    //console.log(`⛔ Bloqueado: ${resumen.isBloqueado ? 'Sí' : 'No'}`);
+    //console.log('──────────────────────────');
+    //console.log(`📊 Rol: ${resumen.userData.userRole}`);
+    //console.log(`👤 Nombre: ${resumen.userData.username}`);
+    //console.log(`📋 Estado: ${resumen.status}`);
+    //console.log('──────────────────────────');
   }
 
   getQuickStatus(): string {

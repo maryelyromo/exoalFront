@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ProyectoExtendido } from '../components/cierreproyectos/cierreproyectos.component';
 
 export interface Usuario {
   nombre: string;
@@ -63,5 +64,8 @@ export class NuserService {
     .pipe(
       catchError(this.manejarError)
     );
+  }
+  mostrarProyectosFinalizados() {
+    return this.http.post<ProyectoExtendido[]>(this.bduser + 'data/misProyectos', { ID_SUSTENTANTE: localStorage.getItem('userId') });
   }
 }

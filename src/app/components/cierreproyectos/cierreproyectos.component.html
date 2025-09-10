@@ -1,0 +1,122 @@
+<div *ngIf="proyectos.length === 0" class="alert alert-danger text-center" role="alert">
+  <i class="bi bi-exclamation-triangle-fill me-2"></i>
+  No hay proyectos en espera para aceptar.
+</div>
+<div class="container py-4">
+  <div *ngFor="let proyecto of proyectos; let i = index" class="mb-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          {{ proyecto.NAME_PROYECT }}
+          <small class="text-light">({{ proyecto.DISCIPLINA }})</small>
+        </h5>
+      </div>
+
+      <div class="card-body">
+        <div class="accordion" [attr.id]="'accordionProyecto' + i">
+          <ng-container *ngFor="let seccion of getSeccionesProyecto(proyecto); let j = index">
+            <div class="accordion-item">
+              <h2 class="accordion-header" [attr.id]="'heading' + i + '-' + j">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse' + i + '-' + j"
+                  aria-expanded="false"
+                  [attr.aria-controls]="'collapse' + i + '-' + j"
+                >
+                  {{ seccion.titulo }}
+                </button>
+              </h2>
+              <div
+                [attr.id]="'collapse' + i + '-' + j"
+                class="accordion-collapse collapse"
+                [attr.aria-labelledby]="'heading' + i + '-' + j"
+                [attr.data-bs-parent]="'#accordionProyecto' + i"
+              >
+                <div class="accordion-body">
+                  <p class="mb-0" style="white-space: pre-line">{{ seccion.contenido }}</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Sección de Criterios -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" [attr.id]="'heading-criterios-' + i">
+              <button
+                class="accordion-button collapsed bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse-criterios-' + i"
+                aria-expanded="false"
+                [attr.aria-controls]="'collapse-criterios-' + i"
+              >
+                Evaluación del Revisor
+              </button>
+            </h2>
+            <div
+              [attr.id]="'collapse-criterios-' + i"
+              class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'heading-criterios-' + i"
+              [attr.data-bs-parent]="'#accordionProyecto' + i"
+            >
+              <div class="accordion-body">
+                <div *ngIf="isArray(proyecto.criterios) && proyecto.criterios.length > 0; else sinCriterios">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-sm">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Análisis</th>
+                          <th>Diseño</th>
+                          <th>Extensión</th>
+                          <th>Forma</th>
+                          <th>Relación</th>
+                          <th>Riesgos</th>
+                          <th>Recomendaciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let criterio of proyecto.criterios">
+                          <td>{{ criterio.ANALISIS }}</td>
+                          <td>{{ criterio.DISENO }}</td>
+                          <td>{{ criterio.EXTENSION }}</td>
+                          <td>{{ criterio.FORMA }}</td>
+                          <td>{{ criterio.RELACION }}</td>
+                          <td>{{ criterio.RIESGOS }}</td>
+                          <td style="white-space: pre-line">{{ criterio.RECOMENDACIONES }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <ng-template #sinCriterios>
+                  <p class="text-muted">Este proyecto aún no tiene criterios de evaluación.</p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info adicional -->
+        <div class="mt-4">
+          <p><strong>Monto:</strong> ${{ proyecto.MONTO }}</p>
+        </div>
+
+        <!-- Botón Aceptar -->
+        <div class="mt-4">
+           <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-danger" (click)="rechazarProyecto(proyecto.ID_PROYECTO)">
+                    <i class="bi bi-x-circle-fill"></i> Rechazar proyecto
+                </button>
+                
+                <button class="btn btn-success" (click)="aceptarProyecto(proyecto.ID_PROYECTO)">
+                    <i class="bi bi-check-circle-fill"></i> Aceptar proyecto
+                </button>
+                
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
