@@ -29,7 +29,7 @@ export class RevisionproyectoComponent implements OnInit {
   proyectos: Proyecto[] = [];
   evaluacionesForm: FormArray;
 
-  criterios = ['Excelente', 'Satisfactorio', 'En_progreso'];
+  criterios = ['Excelente', 'Satisfactorio', 'En progreso','Iniciado'];
 
   constructor(
     private revisorService: RevisorService,
